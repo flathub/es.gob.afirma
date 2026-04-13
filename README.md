@@ -11,7 +11,7 @@ Autofirma requiere instalar un certificado en el navegador que vayas a utilizar.
 Puedes encontrar el archivo del certificado a instalar en la siguiente ubicacion:
 
 ```
-~/.var/app/es.gob.afirma/.afirma/Autofirma/Autofirma_ROOT.cer
+~/.afirma/Autofirma/Autofirma_ROOT.cer
 ```
 
 Puedes comprobar tu configuracion en las siguientes paginas: 
