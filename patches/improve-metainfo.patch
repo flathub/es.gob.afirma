@@ -40,12 +40,12 @@ index de51cbbe4..ac5005d09 100755
 +  </branding>
 +  <screenshots>
 +    <screenshot type="default">
-+      <image>https://gitlab.com/ivangj/autofirma-flatpak/-/raw/d63de081d312bf7fc20211e116552a180f8cbcc1/assets/screenshots/welcome.webp</image>
++      <image>https://raw.githubusercontent.com/flathub/es.gob.afirma/f9f4a93a2ddd845d87eb03699473e5b37b165369/assets/screenshots/welcome.webp</image>
 +      <caption>Main window when launching the app</caption>
 +      <caption xml:lang="es">Ventana principal al iniciar la aplicación</caption>
 +    </screenshot>
 +    <screenshot>
-+      <image>https://gitlab.com/ivangj/autofirma-flatpak/-/raw/d63de081d312bf7fc20211e116552a180f8cbcc1/assets/screenshots/settings.webp</image>
++      <image>https://raw.githubusercontent.com/flathub/es.gob.afirma/f9f4a93a2ddd845d87eb03699473e5b37b165369/assets/screenshots/settings.webp</image>
 +      <caption>Settings of the main aplication</caption>
 +      <caption xml:lang="es">Preferencias de configuración de firma electrónica</caption>
 +    </screenshot>
