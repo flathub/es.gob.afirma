@@ -2,7 +2,7 @@ diff --git a/afirma-simple-installer/linux/instalador_deb/src/usr/share/metainfo
 index de51cbbe4..ac5005d09 100755
 --- a/afirma-simple-installer/linux/instalador_deb/src/usr/share/metainfo/es.gob.afirma.metainfo.xml
 +++ b/afirma-simple-installer/linux/instalador_deb/src/usr/share/metainfo/es.gob.afirma.metainfo.xml
-@@ -1,27 +1,71 @@
+@@ -1,27 +1,69 @@
  <?xml version="1.0" encoding="UTF-8"?>
 -<component>
 +<component type="desktop-application">
