@@ -35,6 +35,31 @@ Y los siguientes con permisos adicionales:
 
 También, dar permiso a estos ultimos abriría una brecha de ataque grande a tu navegador, por ello no lo habilitamos por defecto ni documentamos como hacerlo aquí.
 
+## Tarjetas inteligentes
+
+El paquete incluye la biblioteca de PC/SC (pcsc-lite) y el módulo PKCS#11 de OpenSC.
+Con ellos, la aplicación accede a las tarjetas a través del demonio `pcscd` del sistema, sin necesidad de permisos USB ni de sistema de archivos adicionales.
+El DNIe se gestiona con el controlador que incorpora la propia aplicación; no hace falta registrarlo como módulo PKCS#11.
+
+> ⚠️ Esta función aún no ha sido probada con tarjetas reales.
+> Los comentarios son bienvenidos.
+
+Para usar una tarjeta criptográfica compatible con OpenSC (por ejemplo, una llave USB con applet PIV):
+
+1. Abre AutoFirma: *Herramientas* → *Preferencias* → pestaña *Almacenes de claves*.
+2. Pulsa *Agregar tarjeta*.
+3. En *Nombre de la tarjeta* escribe un nombre cualquiera, y en *Controlador PKCS#11* introduce:
+   ```
+   /app/lib/opensc-pkcs11.so
+   ```
+4. Pulsa *Conectar* para comprobar que se detecta la tarjeta.
+
+A partir de ese momento, el almacén aparecerá en el diálogo de selección de certificados al firmar.
+
+> ¿Por qué tengo que indicar la ruta del controlador a mano?
+> AutoFirma no detecta automáticamente controladores PKCS#11 en Linux, hay que registrarlos.
+> La ruta debe ser la interna del sandbox (`/app/lib/...`), no la del sistema (`/usr/lib64/...`), porque dentro del Flatpak las bibliotecas del sistema no están disponibles.
+
 ## Contribuir
 
 Cualquier contribución es bien recibida.
