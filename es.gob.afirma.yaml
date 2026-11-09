@@ -15,6 +15,25 @@ finish-args:
 
   - --env=PATH=/usr/bin:/app/bin:/app/jre/bin
 
+# Development files from the bundled smart card stack (pcsc-lite, opensc)
+cleanup:
+  - /bin/pcsc-spy
+  - /etc/reader.conf.d
+  - /include
+  - /lib/pcsc
+  - /lib/pkgconfig
+  - /lib/systemd
+  - /lib/libpcscspy.so
+  - /lib/libpcscspy.so.0
+  - /lib/pkcs11-spy.so
+  - /sbin
+  - /share/doc/opensc
+  - /share/doc/pcsc-lite
+  - /share/info
+  - /share/man
+  - "*.a"
+  - "*.la"
+
 modules:
   - name: openjdk
     buildsystem: simple
@@ -26,6 +45,43 @@ modules:
     build-commands:
       # Copy certutil binary
       - install -Dm755 /usr/bin/certutil ${FLATPAK_DEST}/bin/certutil
+
+  # PC/SC client library. Smart cards are reached through the host pcscd
+  # daemon, whose socket is exposed with --socket=pcsc.
+  - name: pcsc-lite
+    buildsystem: meson
+    config-opts:
+      - -Dlibsystemd=false
+      - -Dlibudev=false
+      - -Dpolkit=false
+      - -Dusb=false
+      - -Dserial=false
+    sources:
+      - type: archive
+        url: https://pcsclite.apdu.fr/files/pcsc-lite-2.5.3.tar.xz
+        sha256: fe2bb733ecf95e52768907eb00da9f9f3daf180960283e514a05dcc090afa3bd
+
+  # PKCS#11 module for smart cards. Register it in AutoFirma with the path
+  # /app/lib/opensc-pkcs11.so (see README.md).
+  - name: opensc
+    buildsystem: autotools
+    config-opts:
+      - --disable-man
+      - --disable-doc
+      - --disable-readline
+      - --disable-notify
+      - --disable-dnie-ui
+      - --disable-sm
+      - --disable-openpace
+      - --disable-tests
+      - --disable-static
+      - --disable-strict
+      - --enable-pcsc
+      - --enable-p11_system_config_modules=/app/share/p11-kit/modules
+    sources:
+      - type: archive
+        url: https://github.com/OpenSC/OpenSC/releases/download/0.27.1/opensc-0.27.1.tar.gz
+        sha256: 976f4a23eaf3397a1a2c3a7aac80bf971a8c3d829c9a79f06145bfaeeae5eca7
 
   - name: autofirma
     buildsystem: simple

@@ -38,6 +38,31 @@ And the following ones with additional permissions:
 Also, giving permission to these last ones would open a big attack surface to your
 browser, so we don't enable them by default and don't document how to do it here.
 
+## Smart cards
+
+The package bundles the PC/SC client library (pcsc-lite) and the OpenSC PKCS#11 module.
+With them, the application reaches smart cards through the system `pcscd` daemon, with no need for extra USB or filesystem permissions.
+The DNIe is handled by AutoFirma's own built-in driver; it does not need to be registered as a PKCS#11 module.
+
+> ⚠️ This has not been tested with real cards yet.
+> Feedback is welcome.
+
+To use an OpenSC-compatible cryptographic card (for example, a USB key with a PIV applet):
+
+1. Open AutoFirma: *Herramientas* → *Preferencias* → *Almacenes de claves* tab (the interface is in Spanish).
+2. Click *Agregar tarjeta*.
+3. Enter any name in *Nombre de la tarjeta* and set *Controlador PKCS#11* to:
+   ```
+   /app/lib/opensc-pkcs11.so
+   ```
+4. Click *Conectar* to check that the card is detected.
+
+From then on, the store will appear in the certificate selection dialog when signing.
+
+> Why do I have to enter the driver path manually?
+> AutoFirma does not auto-detect PKCS#11 drivers on Linux, they must be registered.
+> The path must be the sandbox-internal one (`/app/lib/...`), not the host one (`/usr/lib64/...`), because host libraries are not available inside the Flatpak.
+
 ## Contributing
 
 Any contributions are welcomed.
