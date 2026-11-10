@@ -63,6 +63,12 @@ modules:
 
   # PKCS#11 module for smart cards. Register it in AutoFirma with the path
   # /app/lib/opensc-pkcs11.so (see README.md).
+  #
+  # --enable-sm, --enable-openssl and --enable-zlib are required by the DNIe
+  # driver: card-dnie.c compiles to an empty file without ENABLE_OPENSSL and
+  # ENABLE_SM, and the DNIe stores its certificates zlib-compressed. Asking for
+  # them explicitly makes the build fail if a dependency is missing, instead of
+  # producing an OpenSC that lists the DNIe but cannot read it.
   - name: opensc
     buildsystem: autotools
     config-opts:
@@ -71,12 +77,14 @@ modules:
       - --disable-readline
       - --disable-notify
       - --disable-dnie-ui
-      - --disable-sm
       - --disable-openpace
       - --disable-tests
       - --disable-static
       - --disable-strict
       - --enable-pcsc
+      - --enable-zlib
+      - --enable-openssl
+      - --enable-sm
       - --enable-p11_system_config_modules=/app/share/p11-kit/modules
     sources:
       - type: archive
